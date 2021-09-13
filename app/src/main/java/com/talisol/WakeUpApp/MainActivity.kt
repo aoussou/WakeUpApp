@@ -4,6 +4,7 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Column
@@ -32,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         val intent = Intent(this, PlayRecord::class.java)
-        val pendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
+        val pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0)
         alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
 
 
@@ -93,11 +94,14 @@ class MainActivity : AppCompatActivity() {
 
                 }
 
-//                Button(onClick = {
+                Button(onClick = {
+                    var TAG = "test"
+                    Log.i(TAG, "before broadcast")
 //                    activity.startActivity(Intent(activity, PlayRecord::class.java))
-//                }) {
-//                    Text(text = "Show List")
-//                }
+                    activity.sendBroadcast(intent)
+                }) {
+                    Text(text = "Show List")
+                }
 
 
             }
